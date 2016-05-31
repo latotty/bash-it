@@ -22,8 +22,14 @@ function last_command {
   esac
 }
 
+function current_aws_profile {
+  if [ -n "$AWS_DEFAULT_PROFILE" ]; then
+    echo -e " [${AWS_DEFAULT_PROFILE}@AWS]"
+  fi
+}
+
 function prompt_command() {
-  PS1="\n${green}\w ${bold_cyan}$(scm_char)${green}$(scm_prompt_info) $(last_command)\n ${green}→${reset_color} "
+  PS1="\n${green}\w ${bold_cyan}$(scm_char)${green}$(scm_prompt_info)$(current_aws_profile) $(last_command)\n ${green}→${reset_color} "
 }
 
 PROMPT_COMMAND=prompt_command;
